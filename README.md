@@ -37,7 +37,7 @@ go run main.go
 ```
 
 ## Writing code
-This solution has a file called `leadsController.go` that will help you get started. A single GET endpoint has been provided. 
+This solution has a file called `server/controllers/leadsController.go` that will help you get started. A single GET endpoint has been provided. 
 
 ## Testing your code
 With your solution running, navigate to http://localhost:1323/swagger/index.html to view the Swagger documentation.
