@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  server.Result:
+  controllers.Result:
     properties:
       errors:
         items: {}
@@ -21,11 +21,28 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/server.Result'
+              $ref: '#/definitions/controllers.Result'
             type: array
         "500":
           description: ""
       summary: Health Check
       tags:
       - health
+  /leads:
+    get:
+      description: Returns Array of Lead Results
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.Result'
+            type: array
+        "500":
+          description: ""
+      summary: Get All Lead Data
+      tags:
+      - leads
 swagger: "2.0"

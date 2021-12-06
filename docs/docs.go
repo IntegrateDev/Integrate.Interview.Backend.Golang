@@ -39,7 +39,33 @@ var doc = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/server.Result"
+                                "$ref": "#/definitions/controllers.Result"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/leads": {
+            "get": {
+                "description": "Returns Array of Lead Results",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "leads"
+                ],
+                "summary": "Get All Lead Data",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/controllers.Result"
                             }
                         }
                     },
@@ -51,7 +77,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "server.Result": {
+        "controllers.Result": {
             "type": "object",
             "properties": {
                 "errors": {

@@ -1,4 +1,4 @@
-package server
+package controllers
 
 import (
 	"encoding/json"
@@ -6,21 +6,15 @@ import (
 	"net/http"
 )
 
-type Result struct {
-	Result interface{}   `json:"result"`
-	Errors []interface{} `json:"errors"`
-}
-
 // Health godoc
 // @Summary      Health Check
 // @Description  get server health
 // @Tags         health
-// @Produce      json
+// @Produce      application/json
 // @Success      200  {array}   Result
 // @Failure      500
 // @Router       /health [get]
-func healthCheck(resp http.ResponseWriter, req *http.Request) {
-	resp.Header().Set("Access-Control-Allow-Origin", "*")
+func (c *ControllerManager) HealthCheck(resp http.ResponseWriter, req *http.Request) {
 	responseObj := Result{}
 	responseObj.Result = "Everything is peachy, server up"
 	responseObj.Errors = make([]interface{}, 0)
