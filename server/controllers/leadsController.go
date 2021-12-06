@@ -20,7 +20,7 @@ func (c *ControllerManager) AllLeads(resp http.ResponseWriter, req *http.Request
 	responseObj.Errors = make([]interface{}, 0)
 	respData, err := json.Marshal(responseObj)
 	if err != nil {
-		log.Printf("failed to marshal healthcheck with: %s\n", err)
+		log.Printf("failed to marshal with: %s\n", err)
 		resp.WriteHeader(500)
 		return
 	}
