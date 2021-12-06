@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-// Health godoc
+// Leads godoc
 // @Summary      Get All Lead Data
 // @Description  Returns Array of Lead Results
 // @Tags         leads
