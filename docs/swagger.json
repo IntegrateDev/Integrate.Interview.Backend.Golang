@@ -1,0 +1,48 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "host": "localhost:8084",
+    "basePath": "/",
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "get server health",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Health Check",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/server.Result"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "server.Result": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "array",
+                    "items": {}
+                },
+                "result": {}
+            }
+        }
+    }
+}
