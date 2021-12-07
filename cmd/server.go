@@ -2,6 +2,13 @@ package cmd
 
 import "Integrate.Interview.Backend.Golang/server"
 
+var ip = "127.0.0.1"
+
 func Setup(port string) {
-	server.Start("127.0.0.1", port)
+
+	/*
+		Dependency Injection here to expost lower layers
+	*/
+
+	server.Start(ip, port)
 }
