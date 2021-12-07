@@ -40,7 +40,7 @@ go run main.go
 This solution has a file called `server/controllers/leadsController.go` that will help you get started. A single GET endpoint has been provided. 
 
 ## Testing your code
-With your solution running, navigate to http://localhost:1323/swagger/index.html to view the Swagger documentation.
+With your solution running, navigate to http://localhost:1323/swagger/index.html#/leads to view the Swagger documentation.
 
 Each endpoint has a "Try It Out" section that allows you to test.
 
