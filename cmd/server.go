@@ -9,6 +9,7 @@ func Setup(port string) {
 	/*
 		Dependency Injection here to expost lower layers
 	*/
+	var service interface{}
 
-	server.Start(ip, port)
+	server.Start(ip, port, service)
 }

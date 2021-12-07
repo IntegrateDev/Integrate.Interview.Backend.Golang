@@ -11,6 +11,7 @@ type Lead struct {
 }
 
 type ControllerManager struct {
+	Service interface{} // extend service interface api
 }
 
 type Manager interface {

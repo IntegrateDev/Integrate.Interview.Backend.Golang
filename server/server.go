@@ -8,10 +8,11 @@ import (
 	"Integrate.Interview.Backend.Golang/server/controllers"
 )
 
-func Start(ip, port string) {
+func Start(ip, port string, service interface{}) {
 	swaggerip := "127.0.0.1"
 	swaggerport := "1323"
-	controllersManager := controllers.NewController(&controllers.ControllerManager{})
+
+	controllersManager := controllers.NewController(&controllers.ControllerManager{Service: service})
 	apirouter, docrouter := Api(controllersManager)
 
 	srvdocs := &http.Server{
