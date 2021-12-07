@@ -1,7 +1,18 @@
 package main
 
-import "Integrate.Interview.Backend.Golang/cmd"
+import (
+	"os"
+
+	"Integrate.Interview.Backend.Golang/cmd"
+)
+
+var (
+	port = os.Getenv("PORT")
+)
 
 func main() {
-	cmd.Setup()
+	if port == "" {
+		port = "8084"
+	}
+	cmd.Setup(port)
 }

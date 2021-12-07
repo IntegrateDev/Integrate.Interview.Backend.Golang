@@ -9,15 +9,8 @@ import (
 	"net/http"
 )
 
-var (
-	router      *mux.Router
-	routerdocs  *mux.Router
-	httpManager controllers.Manager = controllers.NewController(&controllers.ControllerManager{})
-)
-
-func init() {
-	ApiSetup()
-	DocsSetup()
+func Api(httpmanager controllers.Manager) (*mux.Router, *mux.Router) {
+	return apiSetup(httpmanager), docsSetup()
 }
 
 type Routes struct {
@@ -27,41 +20,44 @@ type Routes struct {
 	HandlerFunc func(w http.ResponseWriter, r *http.Request)
 }
 
-var routes = []Routes{
-	Routes{
-		Name:        "HealthCheck",
-		Method:      "GET",
-		Path:        "/health",
-		HandlerFunc: httpManager.HealthCheck,
-	},
-	Routes{
-		Name:        "Leads",
-		Method:      "GET",
-		Path:        "/leads",
-		HandlerFunc: httpManager.AllLeads,
-	},
-}
+func apiSetup(httpmanager controllers.Manager) *mux.Router {
 
-func ApiSetup() {
-	router = mux.NewRouter()
+	router := mux.NewRouter()
+
+	routes := []Routes{
+		Routes{
+			Name:        "HealthCheck",
+			Method:      "GET",
+			Path:        "/health",
+			HandlerFunc: httpmanager.HealthCheck,
+		},
+		Routes{
+			Name:        "Leads",
+			Method:      "GET",
+			Path:        "/leads",
+			HandlerFunc: httpmanager.AllLeads,
+		},
+	}
+
 	for _, route := range routes {
 		router.HandleFunc(route.Path, route.HandlerFunc).Methods(route.Method)
 	}
 
 	router.Use(loggingMiddleware)
+	return router
 }
 
 // @host localhost:8084
 // @BasePath /
-func DocsSetup() {
-
-	routerdocs = mux.NewRouter()
+func docsSetup() *mux.Router {
+	routerdocs := mux.NewRouter()
 	routerdocs.PathPrefix("/swagger/").Handler(httpSwagger.Handler(
 		httpSwagger.URL("http://localhost:1323/swagger/doc.json"), //The url pointing to API definition
 		httpSwagger.DeepLinking(true),
 		httpSwagger.DocExpansion("none"),
 		httpSwagger.DomID("#swagger-ui"),
 	))
+	return routerdocs
 }
 
 func loggingMiddleware(next http.Handler) http.Handler {
@@ -70,7 +66,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 		w.Header().Set("Content-Type", "application/json")
 
 		log.Println(r.RequestURI)
-		// Call the next handler, which can be another middleware in the chain, or the final handler.
+
 		next.ServeHTTP(w, r)
 	})
 }

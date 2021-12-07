@@ -4,13 +4,18 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"Integrate.Interview.Backend.Golang/server/controllers"
 )
 
 func Start(ip, port string) {
 	swaggerip := "127.0.0.1"
 	swaggerport := "1323"
+	controllersManager := controllers.NewController(&controllers.ControllerManager{})
+	apirouter, docrouter := Api(controllersManager)
+
 	srvdocs := &http.Server{
-		Handler:      routerdocs,
+		Handler:      docrouter,
 		Addr:         swaggerip + ":" + swaggerport,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
@@ -23,7 +28,7 @@ func Start(ip, port string) {
 	log.Printf("Running on %s:%s", ip, port)
 
 	srv := &http.Server{
-		Handler:      router,
+		Handler:      apirouter,
 		Addr:         ip + ":" + port,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
